@@ -1,0 +1,136 @@
+"use client";
+
+import { useShoppingCart } from "use-shopping-cart";
+import { Button } from "@/components/ui/button";
+import { useState, ChangeEvent, FormEvent } from "react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+
+const cities = ["Иваново", "Ковров", "Плёс"];
+
+interface FormData {
+  name: string;
+  phoneNumber: string;
+  city: string;
+}
+
+export default function Page() {
+  const { cartDetails } = useShoppingCart();
+  const router = useRouter();
+
+
+  const [formData, setFormData] = useState<FormData>({
+    name: "",
+    phoneNumber: "",
+    city: "",
+  });
+
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
+    const BOT_TOKEN = "7018070659:AAE-59jUfwwAoijgZ7J2YWRJfl_odbDjFKw";
+    e.preventDefault();
+
+    const message = `Новый заказ!\nИмя: ${formData.name}\nТелефон: ${
+      formData.phoneNumber
+    }\nГород: ${formData.city}\n\nТовары:\n${Object.values(cartDetails)
+      .map((item) => `${item.name} - ${item.quantity} шт.`)
+      .join("\n")}`;
+
+    try {
+      await axios.post(
+        `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
+        {
+          chat_id: "5379725422",
+          text: message,
+          parse_mode: "Markdown",
+        }
+      );
+      console.log("Заказ отправлен в Telegram");
+      router.push('/success');
+
+    } catch (error) {
+      console.error("Ошибка отправки заказа в Telegram:", error);
+    }
+  };
+
+  return (
+    <div className="flex items-center justify-center bg-white">
+      <div className="bg-gray-100 p-8 rounded-lg shadow-md w-full max-w-md">
+        <h1 className="text-2xl mb-4">Форма заказа</h1>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium text-gray-600 "
+            >
+              Имя
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="mt-1 p-2 w-full border rounded-md"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              htmlFor="phoneNumber"
+              className="block text-sm font-medium text-gray-600 "
+            >
+              Номер телефона
+            </label>
+            <input
+              type="tel"
+              id="phoneNumber"
+              name="phoneNumber"
+              value={formData.phoneNumber}
+              onChange={handleChange}
+              className="mt-1 p-2 w-full border rounded-md"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label
+              htmlFor="city"
+              className="block text-sm font-medium text-gray-600"
+            >
+              Город
+            </label>
+            <select
+              id="city"
+              name="city"
+              value={formData.city}
+              onChange={handleChange}
+              className="mt-1 p-2 w-full border rounded-md appearance-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+              required
+            >
+              <option value="" disabled hidden>
+                Выберите город
+              </option>
+              {cities.map((city) => (
+                <option key={city} value={city} className="text-gray-800">
+                  {city}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="mt-4">
+            <Button type="submit">Заказать</Button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
