@@ -40,10 +40,11 @@ export default function Page() {
     e.preventDefault();
 
     const message = `Новый заказ!\nИмя: ${formData.name}\nТелефон: ${
-      formData.phoneNumber
-    }\nГород: ${formData.city}\n\nТовары:\n${Object.values(cartDetails)
-      .map((item) => `${item.name} - ${item.quantity} шт.`)
-      .join("\n")}`;
+        formData.phoneNumber
+    }\nГород: ${formData.city}\n\nТовары:\n${cartDetails ? Object.values(cartDetails)
+        .map((item) => `${item.name} - ${item.quantity} шт.`)
+        .join("\n") : ''}`;
+
 
     try {
       await axios.post(
