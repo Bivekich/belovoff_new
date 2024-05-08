@@ -6,7 +6,7 @@ import { useState, ChangeEvent, FormEvent } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-const cities = ["Иваново", "Ковров", "Плёс"];
+const cities = ["Кинешма", "Ковров"];
 
 interface FormData {
   name: string;
@@ -36,7 +36,8 @@ export default function Page() {
   };
 
   const handleSubmit = async (e: FormEvent) => {
-    const BOT_TOKEN = "7018070659:AAE-59jUfwwAoijgZ7J2YWRJfl_odbDjFKw";
+    const BOT_TOKEN_KINESHMA = "7150801136:AAH5C2d_ArN2uhbJpRgBtZOZM93QXvLqHJw";
+    const BOT_TOKEN_KOVROV = "7159562205:AAHYPaJrSaeyoFvIoPQ-PlhXZMUXpxrD84g"
     e.preventDefault();
 
     const message = `Новый заказ!\nИмя: ${formData.name}\nТелефон: ${
@@ -47,14 +48,28 @@ export default function Page() {
 
 
     try {
-      await axios.post(
-        `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
-        {
-          chat_id: "5379725422",
-          text: message,
-          parse_mode: "Markdown",
-        }
-      );
+      if (formData.city === 'Кинешма') {
+        await axios.post(
+            `https://api.telegram.org/bot${BOT_TOKEN_KINESHMA}/sendMessage`,
+            {
+              chat_id: "5379725422",
+              text: message,
+              parse_mode: "Markdown",
+            }
+        );
+      }
+
+      if (formData.city === 'Ковров') {
+        await axios.post(
+            `https://api.telegram.org/bot${BOT_TOKEN_KOVROV}/sendMessage`,
+            {
+              chat_id: "5379725422",
+              text: message,
+              parse_mode: "Markdown",
+            }
+        );
+      }
+
       console.log("Заказ отправлен в Telegram");
       router.push('/success');
 
