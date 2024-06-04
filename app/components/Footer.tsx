@@ -14,7 +14,6 @@ export default async function Footer() {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="mb-8">
-            <h3 className="text-xl font-bold mb-4">О нас</h3>
             <p>
               {data.about}
             </p>
@@ -36,14 +35,6 @@ export default async function Footer() {
                   className="text-gray-400 hover:text-white transition duration-300"
                 >
                   Продукты
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/privacy"
-                  className="text-gray-400 hover:text-white transition duration-300"
-                >
-                  Политика конфедициальности
                 </Link>
               </li>
             </ul>
