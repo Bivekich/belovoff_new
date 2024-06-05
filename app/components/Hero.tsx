@@ -67,11 +67,11 @@ export default async function Hero() {
         Категории
       </h2>
       <div className="flex items-center justify-between">
-        <div className="flex mb-5 flex-col gap-8">
-          {Array.from({length: 2}, (_, index) => (
-            <div key={index} className="flex h-24 w-full divide-x overflow-hidden rounded-lg border">
+        <div className="flex mb-5 w-full flex-col gap-8">
+          {Array.from({length: 4}, (_, index) => (
+            <div key={index} className="flex h-24 divide-x overflow-hidden rounded-lg border">
               {categories.slice(index * 3, index * 3 + 3).map((category) => (
-                <Link key={category.href} href={category.href} className="flex flex-1 items-center justify-center text-gray-500 transition duration-100 hover:bg-gray-100 active:bg-gray-200">{category.label}</Link>
+                <Link key={category.href} href={category.href} className="flex flex-1 items-center text-center justify-center text-gray-500 transition duration-100 hover:bg-gray-100 active:bg-gray-200">{category.label}</Link>
               ))}
             </div>
           ))}
