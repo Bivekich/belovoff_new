@@ -6,7 +6,7 @@ export default {
         {
             name: 'about',
             type: 'string',
-            title: 'О нас'
+            title: 'Текст'
         },
         {
             name: 'adress',
