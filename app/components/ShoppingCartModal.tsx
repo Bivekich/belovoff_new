@@ -37,7 +37,7 @@ export default function ShoppingCartModal() {
                 <>
                   {Object.values(cartDetails ?? {}).map((entry) => (
                     <li key={entry.id} className="flex py-6">
-                      <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                      <div className="h-full flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                         <Image
                           src={entry.image as string}
                           alt="Product image"
@@ -91,7 +91,7 @@ export default function ShoppingCartModal() {
 
             <div className="mt-6">
               <Link href="/checkout">
-                <Button className="w-full">Заказать</Button>
+                <Button onClick={handleCartClick} className="w-full">Заказать</Button>
               </Link>
             </div>
 

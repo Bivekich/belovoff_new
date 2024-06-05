@@ -15,7 +15,7 @@ interface FormData {
 }
 
 export default function Page() {
-  const { cartDetails } = useShoppingCart();
+  const { cartDetails, clearCart } = useShoppingCart();
   const router = useRouter();
 
 
@@ -69,6 +69,8 @@ export default function Page() {
             }
         );
       }
+
+      clearCart()
 
       console.log("Заказ отправлен в Telegram");
       router.push('/success');

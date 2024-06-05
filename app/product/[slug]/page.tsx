@@ -67,7 +67,7 @@ export default async function ProductPge({
                 image={data.images[0]}
                 name={data.name}
                 price={data.price}
-                key={data._id}
+                id={data._id}
                 price_id={data.price_id}
               />
             </div>
