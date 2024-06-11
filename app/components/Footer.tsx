@@ -31,6 +31,11 @@ export default async function Footer() {
                     Продукты
                   </Link>
                 </li>
+                <li>
+                  <Link href="/privacy" className="text-gray-400 hover:text-white transition duration-300">
+                        Политика конфедициальности
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>

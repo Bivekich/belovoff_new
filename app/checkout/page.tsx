@@ -1,24 +1,41 @@
 "use client";
 
 import { useShoppingCart } from "use-shopping-cart";
-import { Button } from "@/components/ui/button";
 import { useState, ChangeEvent, FormEvent } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import {Button} from "@/components/ui/button";
 
 const cities = ["Кинешма", "Ковров"];
 
-interface FormData {
+interface formData {
     name: string;
     city: string;
 }
+
+interface BotConfig {
+    botToken: string;
+    groupID: string;
+}
+
+const BOT_CONFIGS: Record<string, BotConfig> = {
+    Кинешма: {
+        botToken: "7150801136:AAH5C2d_ArN2uhbJpRgBtZOZM93QXvLqHJw",
+        groupID: "-1002083343385",
+    },
+    Ковров: {
+        botToken: "7159562205:AAHYPaJrSaeyoFvIoPQ-PlhXZMUXpxrD84g",
+        groupID: "-1001921913792",
+    },
+};
+
 
 export default function Page() {
   const { cartDetails, clearCart } = useShoppingCart();
   const router = useRouter();
 
 
-    const [formData, setFormData] = useState<FormData>({
+    const [formData, setFormData] = useState<formData>({
         name: "",
         city: "",
     });
@@ -34,9 +51,13 @@ export default function Page() {
     };
 
     const handleSubmit = async (e: FormEvent) => {
-        const BOT_TOKEN_KINESHMA = "7150801136:AAH5C2d_ArN2uhbJpRgBtZOZM93QXvLqHJw";
-        const BOT_TOKEN_KOVROV = "7159562205:AAHYPaJrSaeyoFvIoPQ-PlhXZMUXpxrD84g"
         e.preventDefault();
+
+        const selectedCityConfig = BOT_CONFIGS[formData.city];
+        if (!selectedCityConfig) {
+            console.error("Ошибка: Неправильный город выбран.");
+            return;
+        }
 
         const message = `Новый заказ!\nИмя: ${formData.name}
     \nГород: ${formData.city}\n\nТовары:\n${cartDetails ? Object.values(cartDetails)
@@ -45,38 +66,24 @@ export default function Page() {
 
 
         try {
-            if (formData.city === 'Кинешма') {
-                await axios.post(
-                    `https://api.telegram.org/bot${BOT_TOKEN_KINESHMA}/sendMessage`,
-                    {
-                        chat_id: "6492871150",
-                        text: message,
-                        parse_mode: "Markdown",
-                    }
-                );
-            }
+            await axios.post(
+                `https://api.telegram.org/bot${selectedCityConfig.botToken}/sendMessage`,
+                {
+                    chat_id: selectedCityConfig.groupID,
+                    text: message,
+                    parse_mode: "Markdown",
+                }
+            );
 
-            if (formData.city === 'Ковров') {
-                await axios.post(
-                    `https://api.telegram.org/bot${BOT_TOKEN_KOVROV}/sendMessage`,
-                    {
-                        chat_id: "6492871150",
-                        text: message,
-                        parse_mode: "Markdown",
-                    }
-                );
-            }
-
-        console.log("Заказ отправлен в Telegram");
-        router.push('/success');
-      clearCart()
-
-    } catch (error) {
-      console.error("Ошибка отправки заказа в Telegram:", error);
-    }
+            console.log("Заказ отправлен в Telegram");
+            router.push("/success");
+            clearCart();
+        } catch (error) {
+            console.error("Ошибка отправки заказа в Telegram:", error);
+        }
   };
 
-    return (
+return (
         <div className="flex items-center justify-center bg-white">
             <div className="bg-gray-100 p-8 rounded-lg shadow-md w-full max-w-md">
                 <h1 className="text-2xl mb-4">Форма заказа</h1>
