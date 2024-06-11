@@ -85,9 +85,6 @@ export default function ShoppingCartModal() {
               <p>Итог:</p>
               <p>{totalPrice}₽</p>
             </div>
-            <p className="mt-0.5 text-sm text-gray-500">
-              Доставка уже включена в стоимость
-            </p>
 
             <div className="mt-6">
               <Link href="/checkout">

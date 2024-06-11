@@ -49,7 +49,7 @@ export default function Page() {
                 await axios.post(
                     `https://api.telegram.org/bot${BOT_TOKEN_KINESHMA}/sendMessage`,
                     {
-                        chat_id: "5379725422",
+                        chat_id: "6492871150",
                         text: message,
                         parse_mode: "Markdown",
                     }
@@ -60,7 +60,7 @@ export default function Page() {
                 await axios.post(
                     `https://api.telegram.org/bot${BOT_TOKEN_KOVROV}/sendMessage`,
                     {
-                        chat_id: "5379725422",
+                        chat_id: "6492871150",
                         text: message,
                         parse_mode: "Markdown",
                     }

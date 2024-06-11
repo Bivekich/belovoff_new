@@ -21,15 +21,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+      <html lang="en">
       <body className={inter.className}>
-        <CartProvider>
-          <Navbar />
-          <ShoppingCartModal />
-          {children}
-          <Footer />
-        </CartProvider>
+      <CartProvider>
+        <Navbar/>
+        <ShoppingCartModal/>
+        {children}
+        <Footer/>
+      </CartProvider>
       </body>
-    </html>
+      </html>
   );
 }

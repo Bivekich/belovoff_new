@@ -2,8 +2,6 @@ import AddToBag from "@/app/components/AddToBag";
 import ImageGallery from "@/app/components/ImageGallery";
 import { fullProduct } from "@/app/interface";
 import { client } from "@/app/lib/sanity";
-import { Button } from "@/components/ui/button";
-import { Star, Truck } from "lucide-react";
 
 async function getData(slug: string) {
   const query = `*[_type == "product" && slug.current == "${slug}"][0] {
@@ -53,11 +51,6 @@ export default async function ProductPge({
                   {data.price}₽
                 </span>
               </div>
-            </div>
-
-            <div className="mb-6 flex items-center gap-2 text-gray-500">
-              <Truck className="w-6 h-6" />
-              <span className="text-sm">Доставка: 7-14 дней</span>
             </div>
 
             <div className="flex gap-2.5">
