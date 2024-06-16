@@ -6,7 +6,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import {Button} from "@/components/ui/button";
 
-const cities = ["Кинешма", "Ковров"];
+const cities = ["Кинешма", "Ковров", "Камешково"];
 
 interface formData {
     name: string;
@@ -14,18 +14,18 @@ interface formData {
 }
 
 interface BotConfig {
-    botToken: string;
     groupID: string;
 }
 
 const BOT_CONFIGS: Record<string, BotConfig> = {
     Кинешма: {
-        botToken: "7150801136:AAH5C2d_ArN2uhbJpRgBtZOZM93QXvLqHJw",
         groupID: "-1002083343385",
     },
     Ковров: {
-        botToken: "7159562205:AAHYPaJrSaeyoFvIoPQ-PlhXZMUXpxrD84g",
         groupID: "-1001921913792",
+    },
+    Камешково: {
+        groupID: "-1002193615497",
     },
 };
 
@@ -67,7 +67,7 @@ export default function Page() {
 
         try {
             await axios.post(
-                `https://api.telegram.org/bot${selectedCityConfig.botToken}/sendMessage`,
+                `https://api.telegram.org/bot7150801136:AAH5C2d_ArN2uhbJpRgBtZOZM93QXvLqHJw/sendMessage`,
                 {
                     chat_id: selectedCityConfig.groupID,
                     text: message,
