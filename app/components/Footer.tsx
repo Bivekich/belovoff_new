@@ -42,11 +42,13 @@ export default async function Footer() {
           <div className="flex flex-col md:flex-row justify-between items-center border-t border-gray-700 pt-8">
             <p className="mb-4 md:mb-0">
               Made with ❤️ by{" "}
-              <a href="https://codecrafters-ivory.vercel.app/" className="text-pink-500 hover:text-pink-400 transition duration-300">
+              <a href="https://codecrafters-ivory.vercel.app/"
+                 className="text-pink-500 hover:text-pink-400 transition duration-300">
                 CodeCrafters
               </a>
             </p>
             <p>&copy; 2024 Все права защищены</p>
+            <p className="text-sm text-gray-400 mt-4 md:mt-0">Только для лиц старше 18 лет</p>
           </div>
         </div>
       </footer>
