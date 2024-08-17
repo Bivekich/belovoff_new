@@ -6,7 +6,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import {Button} from "@/components/ui/button";
 
-const cities = ["Кинешма", "Ковров", "Камешково"];
+const cities = ["Кинешма", "Ковров", "Камешково", "Иваново"];
 
 interface formData {
     name: string;
@@ -26,6 +26,9 @@ const BOT_CONFIGS: Record<string, BotConfig> = {
     },
     Камешково: {
         groupID: "-1002193615497",
+    },
+    Иваново: {
+        groupID: "-1002235441129",
     },
 };
 
