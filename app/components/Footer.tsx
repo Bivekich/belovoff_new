@@ -68,7 +68,9 @@ export default async function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center border-t border-gray-700 pt-8">
           <p className="mb-4 md:mb-0">Разработка сайта</p>
           <p>&copy; 2024 Все права защищены</p>
-          <p className="text-sm text-gray-400 mt-4 md:mt-0">ИП "Belovoff"</p>
+          <p className="text-sm text-gray-400 mt-4 md:mt-0">
+            ИП &quot;Belovoff&quot;
+          </p>
         </div>
       </div>
     </footer>

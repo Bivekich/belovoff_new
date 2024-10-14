@@ -2,6 +2,17 @@ import Image from "next/image";
 import { client, urlFor } from "../lib/sanity";
 import Link from "next/link";
 
+interface Category {
+  slug: {
+    current: string; // Type of the slug
+  };
+  name: string; // Type of the name
+}
+interface CategoryShow {
+  href: string;
+  label: string; // Type of the name
+}
+
 async function getData() {
   const query = "*[_type == 'hero'][0]";
   const data = await client.fetch(query);
@@ -18,10 +29,11 @@ export default async function Hero() {
   const categories_ = await getCategories();
   console.log(categories_);
 
-  const categories = categories_.map((item) => ({
+  const categories = categories_.map((item: Category) => ({
     href: item.slug.current,
     label: item.name,
   }));
+
   console.log(categories);
 
   return (
@@ -73,15 +85,17 @@ export default async function Hero() {
                 key={index}
                 className="flex h-24 divide-x overflow-hidden rounded-lg border"
               >
-                {categories.slice(index * 3, index * 3 + 3).map((category) => (
-                  <Link
-                    key={category.href}
-                    href={category.href}
-                    className="flex flex-1 items-center text-center justify-center text-gray-500 transition duration-100 hover:bg-gray-100 active:bg-gray-200"
-                  >
-                    {category.label}
-                  </Link>
-                ))}
+                {categories
+                  .slice(index * 3, index * 3 + 3)
+                  .map((category: CategoryShow) => (
+                    <Link
+                      key={category.href}
+                      href={category.href}
+                      className="flex flex-1 items-center text-center justify-center text-gray-500 transition duration-100 hover:bg-gray-100 active:bg-gray-200"
+                    >
+                      {category.label}
+                    </Link>
+                  ))}
               </div>
             )
           )}
