@@ -7,24 +7,22 @@ async function getData() {
   const data = await client.fetch(query);
   return data;
 }
+async function getCategories() {
+  const query = "*[_type == 'category']";
+  const data = await client.fetch(query);
+  return data;
+}
 
 export default async function Hero() {
-
   const data = await getData();
-  const categories = [
-    { href: "/Meat", label: "Фермерская мясная продукция" },
-    { href: "/Nuts-dried-fruits", label: "Орехи и сухофрукты" },
-    { href: "/Dried-fish", label: "Вяленая рыба" },
-    { href: "/Grocery", label: "Бакалея" },
-    { href: "/Sweets", label: "Сладости" },
-    { href: "/Cheese-butter", label: "Сыр и сливочное масло" },
-    { href: "/Canned", label: "Фермерская консервация" },
-    { href: "/Belarus-products", label: "Белорусские продукты" },
-    { href: "/Drinks", label: "Напитки" },
-    { href: "/Vegetables", label: "Овощи" },
-    { href: "/Fruits", label: "Фрукты" },
-    { href: "/Textile", label: "Текстиль" },
-  ];  
+  const categories_ = await getCategories();
+  console.log(categories_);
+
+  const categories = categories_.map((item) => ({
+    href: item.slug.current,
+    label: item.name,
+  }));
+  console.log(categories);
 
   return (
     <section className="mx-auto max-w-2xl px-4 sm:pb-6 lg:max-w-7xl lg:px-8">
@@ -68,13 +66,25 @@ export default async function Hero() {
       </h2>
       <div className="flex items-center justify-between">
         <div className="flex mb-5 w-full flex-col gap-8">
-          {Array.from({length: 4}, (_, index) => (
-            <div key={index} className="flex h-24 divide-x overflow-hidden rounded-lg border">
-              {categories.slice(index * 3, index * 3 + 3).map((category) => (
-                <Link key={category.href} href={category.href} className="flex flex-1 items-center text-center justify-center text-gray-500 transition duration-100 hover:bg-gray-100 active:bg-gray-200">{category.label}</Link>
-              ))}
-            </div>
-          ))}
+          {Array.from(
+            { length: Math.ceil(categories.length / 3) },
+            (_, index) => (
+              <div
+                key={index}
+                className="flex h-24 divide-x overflow-hidden rounded-lg border"
+              >
+                {categories.slice(index * 3, index * 3 + 3).map((category) => (
+                  <Link
+                    key={category.href}
+                    href={category.href}
+                    className="flex flex-1 items-center text-center justify-center text-gray-500 transition duration-100 hover:bg-gray-100 active:bg-gray-200"
+                  >
+                    {category.label}
+                  </Link>
+                ))}
+              </div>
+            )
+          )}
         </div>
       </div>
     </section>
