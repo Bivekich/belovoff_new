@@ -1,5 +1,5 @@
 import Link from "next/link";
-// import Image from "next/image";
+import Image from "next/image";
 import { client } from "../lib/sanity";
 
 async function getData() {
@@ -47,14 +47,20 @@ export default async function Footer() {
             </ul>
           </div>
           <div className="flex flex-col gap-2">
-            <img
+            <Image
               src="/images/mir.png"
               alt="Мир"
+              layout="responsive" // Позволяет адаптивно менять размеры
+              width={410} // Можно задать только ширину для расчета пропорций
+              height={123}
               className="max-w-[300px] w-full"
             />
-            <img
+            <Image
               src="/images/sbp.png"
               alt="СБП"
+              layout="responsive" // Позволяет адаптивно менять размеры
+              width={821} // Можно задать только ширину для расчета пропорций
+              height={639}
               className="max-w-[300px] w-full"
             />
           </div>
