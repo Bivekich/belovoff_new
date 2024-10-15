@@ -117,7 +117,7 @@ export default function Page() {
               required
             />
           </div>
-          <div className="mb-4">
+          <div className="mb-4 hidden">
             <label
               htmlFor="city"
               className="block text-sm font-medium text-gray-600"
