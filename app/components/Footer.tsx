@@ -69,7 +69,7 @@ export default async function Footer() {
           <p className="mb-4 md:mb-0">Разработка сайта</p>
           <p>&copy; 2024 Все права защищены</p>
           <p className="text-sm text-gray-400 mt-4 md:mt-0">
-            ИП &quot;Belovoff&quot;
+            ИП Белов Сергей Вячеславович, ИНН: 651400899696
           </p>
         </div>
       </div>
