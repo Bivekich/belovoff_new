@@ -9,7 +9,7 @@ import Footer from "./components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "FoodStore | Вкусная еда по низким ценам",
+  title: "Belovoff",
   description: "Made with <3 by Lev Danilov",
 };
 
@@ -21,15 +21,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-      <html lang="en">
+    <html lang="en">
+      <head>
+        <link rel="icon" href="/images/favicon.svg" type="image/svg" />
+      </head>
       <body className={inter.className}>
-      <CartProvider>
-        <Navbar/>
-        <ShoppingCartModal/>
-        {children}
-        <Footer/>
-      </CartProvider>
+        <CartProvider>
+          <Navbar />
+          <ShoppingCartModal />
+          {children}
+          <Footer />
+        </CartProvider>
       </body>
-      </html>
+    </html>
   );
 }
