@@ -66,7 +66,9 @@ export default async function Footer() {
           </div>
         </div>
         <div className="flex flex-col md:flex-row justify-between items-center border-t border-gray-700 pt-8">
-          <p className="mb-4 md:mb-0">Разработка сайта</p>
+          <a href="https://biveki.ru" className="mb-4 md:mb-0">
+            Разработка сайта
+          </a>
           <p>&copy; 2024 Все права защищены</p>
           <p className="text-sm text-gray-400 mt-4 md:mt-0">
             ИП Белов Сергей Вячеславович, ИНН: 651400899696
