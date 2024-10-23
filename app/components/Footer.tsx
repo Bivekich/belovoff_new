@@ -1,76 +1,62 @@
 import Link from "next/link";
 import Image from "next/image";
 import { client } from "../lib/sanity";
-
-async function getData() {
-  const query = "*[_type == 'footer'][0]";
-  const data = await client.fetch(query);
-  return data;
-}
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTelegram, faVk, faInstagram } from "@fortawesome/free-brands-svg-icons";
 
 export default async function Footer() {
-  const data = await getData();
   return (
-    <footer className="mt-16 bg-gray-800 text-white py-12">
+    <footer className="mt-16 bg-[#000000] text-white py-12 rounded-t-3xl">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
-          <div className="flex-1 mb-8 md:mb-0">
-            <p className="text-gray-400 leading-relaxed">{data.about}</p>
+        {/* Main grid container */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+          {/* Logo and address */}
+          <div className="flex flex-col items-start">
+            <img src="/images/Logo.png" alt="Logo" className="w-42 mb-[100px]" />
+            <div className="flex gap-4 text-[30px]">
+              <FontAwesomeIcon icon={faTelegram} className=" text-[#1271CE]" />
+              <FontAwesomeIcon icon={faVk} className=" text-[#1271CE]" />
+              <FontAwesomeIcon icon={faInstagram} className=" text-[#1271CE]" />
+            </div>
           </div>
-          <div className="flex-1">
-            <h3 className="text-xl font-bold mb-4">Ссылки</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link
-                  href="/"
-                  className="text-gray-400 hover:text-white transition duration-300"
-                >
-                  Главная
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/all"
-                  className="text-gray-400 hover:text-white transition duration-300"
-                >
-                  Продукты
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/privacy"
-                  className="text-gray-400 hover:text-white transition duration-300"
-                >
-                  Политика конфедициальности
-                </Link>
-              </li>
-            </ul>
+
+          {/* Navigation links */}
+          <div className="flex flex-col md:items-center">
+            <nav className="flex flex-row gap-5 text-gray-400">
+              <a href="#" className="hover:text-gray-300 transition duration-200">Акции</a>
+              <a href="#" className="hover:text-gray-300 transition duration-200">Доставка и оплата</a>
+              <a href="#" className="hover:text-gray-300 transition duration-200">Контакты</a>
+            </nav>
           </div>
-          <div className="flex flex-col gap-2">
-            <Image
-              src="/images/mir.png"
-              alt="Мир"
-              layout="responsive" // Позволяет адаптивно менять размеры
-              width={410} // Можно задать только ширину для расчета пропорций
-              height={123}
-              className="max-w-[300px] w-full"
-            />
-            <Image
-              src="/images/sbp.png"
-              alt="СБП"
-              layout="responsive" // Позволяет адаптивно менять размеры
-              width={821} // Можно задать только ширину для расчета пропорций
-              height={639}
-              className="max-w-[300px] w-full"
-            />
+
+          {/* Contact and social icons */}
+          <div className="flex flex-col md:items-end">
+            <div className="flex items-center text-3xl font-semibold mb-2">
+              <img src="/images/phone.png" alt="Phone" className="w-8 mr-2" />
+              7 (999) 999-99-99
+            </div>
+            <span className="text-gray-400 mb-[70px]">
+              Режим работы: ежедневно с 11:00 до 23:00
+            </span>
+            <div>
+              <p>Адрес:</p>
+              <p className="text-gray-400">г.</p>
+            </div>
           </div>
         </div>
-        <div className="flex flex-col md:flex-row justify-between items-center border-t border-gray-700 pt-8">
-          <a href="https://biveki.ru" className="mb-4 md:mb-0">
+
+        {/* Bottom section - aligned in three columns */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 border-t border-gray-700 text-gray-400 pt-8">
+          {/* Site development link */}
+          <a href="https://biveki.ru" className="hover:text-gray-300 transition duration-500 text-center md:text-left">
             Разработка сайта
           </a>
-          <p>&copy; 2024 Все права защищены</p>
-          <p className="text-sm text-gray-400 mt-4 md:mt-0">
+
+          {/* Copyright */}
+          <p className="text-center">&copy; 2024 Все права защищены</p>
+
+          {/* Company info */}
+          <p className="text-sm text-center md:text-right">
             ИП Белов Сергей Вячеславович, ИНН: 651400899696
           </p>
         </div>
