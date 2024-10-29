@@ -13,14 +13,7 @@ export default async function Footer() {
           {/* Logo and address */}
           <div className="flex flex-col items-start">
             <img src="/images/Logo.png" alt="Logo" className="w-42 mb-[100px]" />
-            <div className="flex gap-4 text-[30px]">
-              <FontAwesomeIcon icon={faTelegram} className=" text-[#1271CE]" />
-              <FontAwesomeIcon icon={faVk} className=" text-[#1271CE]" />
-              <FontAwesomeIcon icon={faInstagram} className=" text-[#1271CE]" />
-            </div>
           </div>
-
-          {/* Navigation links */}
           <div className="flex flex-col md:items-center">
             <nav className="flex flex-row gap-5 text-gray-400">
               <a href="#" className="hover:text-gray-300 transition duration-200">Акции</a>
@@ -30,19 +23,11 @@ export default async function Footer() {
           </div>
 
           {/* Contact and social icons */}
-          <div className="flex flex-col md:items-end">
-            <div className="flex items-center text-3xl font-semibold mb-2">
-              <img src="/images/phone.png" alt="Phone" className="w-8 mr-2" />
-              7 (999) 999-99-99
-            </div>
-            <span className="text-gray-400 mb-[70px]">
+          
+            <span className="text-gray-400 mb-[70px] w-full text-right">
               Режим работы: ежедневно с 11:00 до 23:00
             </span>
-            <div>
-              <p>Адрес:</p>
-              <p className="text-gray-400">г.</p>
-            </div>
-          </div>
+          
         </div>
 
         {/* Bottom section - aligned in three columns */}
