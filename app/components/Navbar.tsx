@@ -10,7 +10,7 @@ export default function Navbar() {
       {/* Top bar */}
       <div className="bg-black rounded-b-3xl h-10 text-white py-2">
         <div className="container mx-auto flex justify-end items-center px-4">
-          {/* @ts-expect-error Async Server Component */}
+         
           <ContactInfo />
         </div>
       </div>
