@@ -4,11 +4,9 @@ import { client } from "../lib/sanity";
 import { urlFor } from "../lib/sanity";
 
 interface Category {
-  slug: {
-    current: string;
-  };
   name: string;
-  image: any;
+  slug: string;  // Changed from nested object to string since we're using "slug": slug.current
+  image: any;    // You might want to type this more specifically based on your Sanity schema
 }
 
 async function getCategories() {
@@ -29,10 +27,10 @@ export default async function Categories() {
   return (
     <div className="max-w-[1440px] w-full px-4 sm:px-6 lg:px-8 mx-auto mb-5">
       <div className="flex gap-4 overflow-x-auto no-scrollbar">
-        {displayedCategories.map((category, index) => (
+        {displayedCategories.map((category: Category) => (
           <Link
-            key={category.slug + index}
-            href={category.slug}
+            key={category.slug}
+            href={`/${category.slug}`}
             className="min-w-[120px] h-[100px] flex flex-col items-center justify-center rounded-xl bg-gray-200 hover:bg-gray-300 text-gray-500 text-center transition duration-100 active:bg-gray-400"
           >
             {category.image && (
