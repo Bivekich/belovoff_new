@@ -8,10 +8,11 @@ export default function CartProvider({ children }: { children: ReactNode }) {
     <USCProvider
       mode="payment"
       cartMode="client-only"
-      stripe="1"
-      cancelUrl="http://localhost:3000/error"
+      stripe=""
+      successUrl={`${process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'}/success`}
+      cancelUrl={`${process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'}/error`}
       currency="RUB"
-      billingAddressCollection={true}
+      billingAddressCollection={false}
       shouldPersist={true}
       language="ru-RU"
     >
