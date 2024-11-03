@@ -11,12 +11,12 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import Breadcrumb from "@/app/components/Breadcrumb";
 import Link from "next/link";
 
-interface formData {
+interface FormData {
   name: string;
   phone: string;
   comment: string;
   delivery: boolean;
-  address?: {
+  address: {
     street: string;
     house: string;
     apartment: string;
@@ -47,31 +47,38 @@ export default function Page() {
     }
   });
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value, type } = e.target;
-    
-    if (name === "delivery") {
-      setFormData({ 
-        ...formData, 
-        delivery: (e.target as HTMLInputElement).checked 
-      });
-      return;
-    }
+ const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const { name, value, type } = e.target;
+  
+  if (name === "delivery") {
+    const isDelivery = (e.target as HTMLInputElement).checked;
+    setFormData({ 
+      ...formData, 
+      delivery: isDelivery,
+      // Reset address fields when delivery is unchecked
+      address: isDelivery ? formData.address : {
+        street: "",
+        house: "",
+        apartment: ""
+      }
+    });
+    return;
+  }
 
-    if (name.startsWith("address.")) {
-      const addressField = name.split(".")[1];
-      setFormData({
-        ...formData,
-        address: {
-          ...formData.address,
-          [addressField]: value
-        }
-      });
-      return;
-    }
+  if (name.startsWith("address.")) {
+    const addressField = name.split(".")[1] as keyof typeof formData.address;
+    setFormData(prev => ({
+      ...prev,
+      address: {
+        ...prev.address,
+        [addressField]: value
+      }
+    }));
+    return;
+  }
 
-    setFormData({ ...formData, [name]: value });
-  };
+  setFormData(prev => ({ ...prev, [name]: value }));
+};
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
