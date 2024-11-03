@@ -92,7 +92,7 @@ export default async function CategoryPage({
 
                 <AddToBag
                   currency="RUB"
-                  description={product.description}
+                  description={product.description || ""}
                   image={product.imageUrl}
                   name={product.name}
                   price={product.price}
