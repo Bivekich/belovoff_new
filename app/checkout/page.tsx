@@ -35,7 +35,7 @@ export default function Page() {
   const { cartDetails, clearCart, removeItem } = useShoppingCart();
   const router = useRouter();
 
-  const [formData, setFormData] = useState<formData>({ 
+  const [formData, setFormData] = useState<FormData>({ 
     name: "", 
     phone: "", 
     comment: "",
