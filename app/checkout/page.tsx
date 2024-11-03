@@ -174,7 +174,7 @@ ${cartDetails
                   onChange={handleChange}
                   className="h-5 w-5 rounded-md border-[#1271CE] text-[#1271CE] focus:ring-none transition-colors cursor-pointer"
                 />
-                <label htmlFor="delivery" className="text-gray-700 cursor-pointer select-none">
+                <label htmlFor="delivery" className="text-gray-500 cursor-pointer select-none">
                   Доставка
                 </label>
               </div>
@@ -227,7 +227,7 @@ ${cartDetails
                 <input 
                   type="checkbox" 
                   id="confirm-checkbox" 
-                  className="h-6 w-6 rounded-md border-[#1271CE] text-[#1271CE] focus:ring-none transition-colors cursor-pointer"
+                  className="h-5 w-5 rounded-md border-[#1271CE] text-[#1271CE] focus:ring-none transition-colors cursor-pointer"
                   required
                   disabled={isCartEmpty}
                 />

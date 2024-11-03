@@ -17,7 +17,7 @@ export default function Navbar() {
 
       {/* Main navbar */}
       <div className="bg-white py-4 text-lg">
-        <div className="container mx-auto flex flex-col sm:flex-row items-center justify-between px-4 gap-4 sm:gap-0">
+        <div className="container mx-auto flex flex-row items-center justify-between px-4 gap-4 sm:gap-0">
           {/* Logo */}
           <Link href="/">
             <img src="/images/Logo2.png" alt="Logo" className="w-36 sm:w-48" />
