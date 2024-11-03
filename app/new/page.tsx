@@ -1,36 +1,42 @@
-import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { simplifiedProduct } from "../interface";
 import { client } from "../lib/sanity";
-import Image from "next/image";
-import AddToBag from "../components/AddToBag";
-import Breadcrumb from "../components/Breadcrumb";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPercentage, faBolt } from "@fortawesome/free-solid-svg-icons";
+import AddToBag from "../components/AddToBag";
+import { notFound } from "next/navigation";
+import Breadcrumb from "@/app/components/Breadcrumb";
 
-async function getData(category: string) {
-  const query = `*[_type == "product" && category->slug.current == "${category}"] {
+async function getData() {
+  // Calculate date 30 days ago
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+  const thirtyDaysAgoISO = thirtyDaysAgo.toISOString();
+
+  const query = `*[
+    _type == 'product' && 
+    dateTime(_createdAt) > dateTime('${thirtyDaysAgoISO}')
+  ] | order(_createdAt desc) {
     _id,
-    "imageUrl": images[0].asset->url,
-    price,
     name,
+    price,
     "slug": slug.current,
     "categoryName": category->name,
+    "imageUrl": images[0].asset->url,
     description,
-    price_id,
-    images
+    images,
+    _createdAt
   }`;
-
-  const data = await client.fetch(query);
+  
+  const data = await client.fetch(query, {}, {
+    cache: 'no-store'
+  });
   return data;
 }
 
-export default async function CategoryPage({
-  params,
-}: {
-  params: { category: string };
-}) {
-  const data: simplifiedProduct[] = await getData(params.category);
+export default async function NewItemsPage() {
+  const data: simplifiedProduct[] = await getData();
 
   if (!data || data.length === 0) {
     notFound();
@@ -38,12 +44,12 @@ export default async function CategoryPage({
 
   return (
     <>
-      <Breadcrumb pageName={data[0]?.categoryName} category={params.category}/>
+      <Breadcrumb pageName="Новинки" />
       <div className="bg-white px-4 sm:px-6">
         <div className="mx-auto max-w-2xl lg:max-w-7xl">
           <div className="flex flex-col gap-y-4">
             <h2 className="text-2xl sm:text-4xl font-semibold tracking-tight text-gray-900">
-              {data[0]?.categoryName}
+              Новинки
             </h2>
             <div className="flex flex-wrap gap-2">
               <Link 
@@ -67,6 +73,11 @@ export default async function CategoryPage({
             {data.map((product) => (
               <div key={product._id} className="group relative p-2 sm:p-4">
                 <Link href={`/product/${product.slug}`}>
+                  {/* "New" Badge */}
+                  <div className="absolute top-6 left-6 bg-blue-500 text-white text-xs px-2 py-3 rounded-full z-[2]">
+                    new
+                  </div>
+
                   <div className="aspect-square w-full overflow-hidden rounded-xl bg-gray-200">
                     <Image
                       src={product.imageUrl}
@@ -92,7 +103,7 @@ export default async function CategoryPage({
 
                 <AddToBag
                   currency="RUB"
-                  description={product.description}
+                  description={product.description || ""}
                   image={product.imageUrl}
                   name={product.name}
                   price={product.price}
@@ -108,4 +119,6 @@ export default async function CategoryPage({
   );
 }
 
+// Disable caching
+export const revalidate = 0;
 export const dynamic = "force-dynamic";

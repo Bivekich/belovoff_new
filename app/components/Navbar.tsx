@@ -1,56 +1,47 @@
-"use client";
-
-import { Button } from "@/components/ui/button";
-import { ShoppingBag, Heart, User } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useShoppingCart } from "use-shopping-cart";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTelegram, faVk, faInstagram } from "@fortawesome/free-brands-svg-icons";
-import { faBagShopping, faList, faBolt, faTag, faMagnifyingGlass, faPhone } from "@fortawesome/free-solid-svg-icons";
+import { faList, faBolt } from "@fortawesome/free-solid-svg-icons";
+import ContactInfo from "./ContactInfo";
+import CartButton from "./CartButton";
 
-
-
-const Navbar = () => {
-  const pathname = usePathname();
-  const { handleCartClick } = useShoppingCart();
-
+export default function Navbar() {
   return (
-    <header className="mb-8">
+    <header>
       {/* Top bar */}
       <div className="bg-black rounded-b-3xl h-10 text-white py-2">
-       
+        <div className="container mx-auto flex justify-end items-center px-4">
+          {/* @ts-expect-error Async Server Component */}
+          <ContactInfo />
+        </div>
       </div>
 
       {/* Main navbar */}
-      <div className="bg-white py-4">
-        <div className="container mx-auto flex items-center justify-between px-4">
+      <div className="bg-white py-4 text-lg">
+        <div className="container mx-auto flex flex-col sm:flex-row items-center justify-between px-4 gap-4 sm:gap-0">
           {/* Logo */}
-          
           <Link href="/">
-            <img src="/images/Logo2.png" alt="Logo" className="w-48" />
+            <img src="/images/Logo2.png" alt="Logo" className="w-36 sm:w-48" />
           </Link>
 
-          {/* Catalog button, search bar, and nav links */}
-          
-          <div className="flex gap-8">
-          <div className="flex gap-2 items-center hover:text-[#358ee7] transition duration-200">
-            <FontAwesomeIcon icon={faBolt} className="text-[#1271CE] "/>
-            Новинки
-            </div>
-            
-            
-          {/* Contact info and icons */}
-         
-          <div className="flex space-x-4 items-center">
-            <FontAwesomeIcon icon={faBagShopping} className="size-7 text-[#1271CE] hover:text-[#358ee7] transition duration-200" onClick={() => handleCartClick()}/>
+          {/* Catalog button and nav links */}
+          <div className="flex gap-4 sm:gap-8">
+            <Link href="/all" className="flex gap-2 items-center hover:text-[#358ee7] transition duration-200">
+              <FontAwesomeIcon icon={faList} className="text-[#1271CE] size-4 sm:size-5"/>
+              <span className="text-sm sm:text-base">Каталог</span>
+            </Link>
 
-            </div>
-            </div>
+            <Link href="/new" className="flex gap-2 items-center hover:text-[#358ee7] transition duration-200">
+              <FontAwesomeIcon icon={faBolt} className="text-[#1271CE] size-4 sm:size-5"/>
+              <span className="text-sm sm:text-base">Новинки</span>
+            </Link>
+          </div>
+
+          {/* Cart icon */}
+          <div className="flex space-x-4 items-center">
+            <CartButton />
+          </div>
         </div>
       </div>
     </header>
   );
-};
-
-export default Navbar;
+}

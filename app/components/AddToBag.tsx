@@ -3,6 +3,8 @@
 import { Button } from "@/components/ui/button";
 import { useShoppingCart } from "use-shopping-cart";
 import { urlFor } from "../lib/sanity";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingBag } from "@fortawesome/free-solid-svg-icons";
 
 export interface ProductCart {
   name: string;
@@ -11,7 +13,8 @@ export interface ProductCart {
   currency: string;
   image: any;
   price_id: string;
-  id: string
+  id: string;
+  className?: string;
 }
 
 export default function AddToBag({
@@ -21,7 +24,8 @@ export default function AddToBag({
   name,
   price,
   price_id,
-  id
+  id,
+  className
 }: ProductCart) {
   const { addItem, handleCartClick } = useShoppingCart();
 
@@ -35,14 +39,19 @@ export default function AddToBag({
     id: id
   };
 
-  console.log(product)
   return (
     <Button
       onClick={() => {
-        addItem(product); handleCartClick();
+        addItem(product);
+        handleCartClick();
       }}
+      className="w-full md:w-[150px] mt-2 bg-black text-white py-2 px-4 sm:px-10 rounded-full text-sm sm:text-base flex justify-center items-center gap-2 hover:bg-[#1271CE] transition-all duration-100 group/btn"
     >
-      Добавить в корзину
+      <FontAwesomeIcon 
+        icon={faShoppingBag} 
+        className="text-[#1271CE] size-4 group-hover/btn:text-white transition-colors duration-100"
+      /> 
+      В корзину
     </Button>
   );
 }

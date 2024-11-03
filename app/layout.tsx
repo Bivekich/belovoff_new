@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import CartProvider from "./components/Providers";
 import ShoppingCartModal from "./components/ShoppingCartModal";
 import Footer from "./components/Footer";
+import Categories from "./components/Categories";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,11 +26,14 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/images/favicon.svg" type="image/svg" />
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.className} flex flex-col min-h-screen`}>
         <CartProvider>
           <Navbar />
+          <Categories />
           <ShoppingCartModal />
-          {children}
+          <main className="flex-grow">
+            {children}
+          </main>
           <Footer />
         </CartProvider>
       </body>

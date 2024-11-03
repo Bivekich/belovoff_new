@@ -1,11 +1,29 @@
 import Hero from "./components/Hero";
-import Newest from "./components/Newest";
+import CategorySection from "./components/CategorySection";
+import { client } from "./lib/sanity";
 
-export default function Home() {
+async function getCategories() {
+  const query = `*[_type == "category"] | order(_createdAt desc) {
+    "slug": slug.current,
+    name
+  }`;
+  const data = await client.fetch(query);
+  return data;
+}
+
+export default async function Home() {
+  const categories = await getCategories();
+
   return (
-    <div className="bg-white pb-6 sm:pb-8 lg:pb-12">
+    <div className="bg-white pb-6 sm:pb-8 lg:pb-12 mb-[150px]">
       <Hero />
-      <Newest />
+      {categories.map((category: { slug: string }) => (
+        <CategorySection key={category.slug} categorySlug={category.slug} />
+      ))}
     </div>
   );
 }
+
+// Disable caching
+export const revalidate = 0;
+export const dynamic = "force-dynamic";

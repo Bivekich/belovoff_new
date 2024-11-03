@@ -9,7 +9,6 @@ export default function CartProvider({ children }: { children: ReactNode }) {
       mode="payment"
       cartMode="client-only"
       stripe="1"
-      successUrl="http://localhost:3000/success"
       cancelUrl="http://localhost:3000/error"
       currency="RUB"
       billingAddressCollection={true}
